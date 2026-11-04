@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dimaap Calçados | Amor em Forma de Sapatos</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Estilos CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Top Bar com Horários e Contatos -->
+    <div class="top-bar">
+        <div class="top-bar-info">
+            <span><i class="fa-regular fa-clock"></i> Seg a Sáb: 09:00 às 19:00</span>
+            <a href="https://wa.me/5511999999999" target="_blank"><i class="fa-brands fa-whatsapp"></i> (11) 99999-9999</a>
+            <a href="https://instagram.com/dimaapcalcados" target="_blank"><i class="fa-brands fa-instagram"></i> @dimaapcalcados</a>
+            <a href="#" id="open-store-modal"><i class="fa-solid fa-location-dot"></i> Nossa Localização</a>
+        </div>
+        <div class="top-bar-social">
+            <span style="font-size: 0.8rem; font-style: italic;">Amor em forma de sapatos 🤍</span>
+            <a href="admin.html">🌐</a>
+        </div>
+    </div>
+
+    <!-- Header & Navegação -->
+    <header>
+        <div class="navbar">
+            <div class="logo-container">
+                <!-- Logotipo Oficial Fornecido -->
+<img src="img.jpg" alt="" id="dima">
+                <div class="logo-text">
+                    <h1>Dimaap Calçados</h1>
+                    <p>Amor em forma de sapatos</p>
+                </div>
+            </div>
+
+            <nav class="nav-links">
+                <a href="#" class="active" data-filter="all">Início</a>
+                <a href="#catalogo" data-filter="calcados">Calçados</a>
+                <a href="#catalogo" data-filter="bolsas">Bolsas</a>
+                <a href="#catalogo" data-filter="bolsas-couro">Bolsas de Couro</a>
+                <a href="#sobre">A Marca</a>
+            </nav>
+
+            <div class="nav-actions">
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="Buscar sapatos, bolsas...">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                <button class="icon-btn" id="wishlist-btn" title="Favoritos">
+                    <i class="fa-regular fa-heart"></i>
+                    <span class="badge-count" id="wishlist-count">0</span>
+                </button>
+                <button class="icon-btn" id="cart-btn" title="Carrinho">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span class="badge-count" id="cart-count">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h2>Elegância e Conforto a Cada Passo</h2>
+        <p>Descubra nossa nova coleção exclusiva de calçados femininos e bolsas em couro legítimo pensadas para mulheres sofisticadas.</p>
+        <button class="btn-primary" onclick="document.getElementById('catalogo').scrollIntoView({behavior: 'smooth'})">Explorar Coleção</button>
+    </section>
+
+    <!-- Catálogo de Produtos -->
+    <main class="container" id="catalogo">
+        <div class="section-title">
+            <h2>Nossas Coleções</h2>
+            <p>Escolha entre sapatos deslumbrantes e bolsas de alta qualidade</p>
+        </div>
+
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">Todos os Produtos</button>
+            <button class="filter-btn" data-filter="calcados">Calçados</button>
+            <button class="filter-btn" data-filter="bolsas">Bolsas</button>
+            <button class="filter-btn" data-filter="bolsas-couro">Bolsas de Couro</button>
+        </div>
+
+        <div class="products-grid" id="products-grid">
+            <!-- Produtos inseridos via JavaScript -->
+        </div>
+    </main>
+
+    <!-- Sobre a Marca -->
+    <section class="container" id="sobre" style="margin: 80px auto; background: #fff; padding: 50px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.03);">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; align-items: center;">
+            <div>
+                <span style="color: var(--primary); font-weight: 600; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;">Nossa Essência</span>
+                <h2 style="font-size: 2rem; color: var(--primary-dark); margin: 10px 0 20px;">Amor em forma de sapatos e acessórios</h2>
+                <p style="color: var(--text-light); line-height: 1.7; margin-bottom: 15px;">Na <strong>Dimaap Calçados</strong>, cada par de sapatos e cada bolsa de couro é selecionado com extremo cuidado para unir o design contemporâneo ao conforto absoluto que você merece no dia a dia e em ocasiões especiais.</p>
+                <p style="color: var(--text-light); line-height: 1.7;">Valorizamos a autenticidade feminina, oferecendo acabamentos impecáveis, durabilidade e sofisticação incomparável.</p>
+            </div>
+            <div>
+                <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=800&q=80" alt="Loja Dimaap Calçados" style="width: 100%; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Dimaap Calçados</h4>
+                <p>Especializada em calçados femininos e bolsas de couro legítimo. Realçando a elegância e o estilo de cada mulher.</p>
+                <div class="social-icons">
+                    <a href="https://instagram.com/dimaapcalcados" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://wa.me/5511999999999" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="#" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Links Rápidos</h4>
+                <ul>
+                    <li><a href="#" data-filter="all">Início</a></li>
+                    <li><a href="#catalogo" data-filter="calcados">Calçados Femininos</a></li>
+                    <li><a href="#catalogo" data-filter="bolsas">Bolsas e Acessórios</a></li>
+                    <li><a href="#catalogo" data-filter="bolsas-couro">Bolsas de Couro Legítimo</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Atendimento</h4>
+                <p><i class="fa-regular fa-clock"></i> Seg a Sáb: 09h às 19h</p>
+                <p><i class="fa-brands fa-whatsapp"></i> (11) 99999-9999</p>
+                <p><i class="fa-regular fa-envelope"></i> contato@dimaapcalcados.com.br</p>
+            </div>
+            <div class="footer-col">
+                <h4>Localização</h4>
+                <p><i class="fa-solid fa-location-dot"></i> Rua Principal do Comércio, 120 - São Paulo, SP</p>
+                <p>Enviamos para todo o Brasil com segurança e rapidez!</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Dimaap Calçados. Todos os direitos reservados. Desenvolvido com carinho.</p>
+        </div>
+    </footer>
+
+    <!-- Carrinho Drawer -->
+    <div class="overlay" id="overlay"></div>
+    <div class="cart-drawer" id="cart-drawer">
+        <div class="cart-header">
+            <h3>Sua Sacola (<span id="cart-item-count">0</span>)</h3>
+            <button class="close-cart" id="close-cart"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="cart-body" id="cart-items-container">
+            <!-- Itens do Carrinho -->
+        </div>
+        <div class="cart-footer">
+            <div class="shipping-progress">
+                <span id="shipping-text">Faltam R$ 150,00 para <strong>Frete Grátis</strong></span>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+            </div>
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cart-total-price">R$ 0,00</span>
+            </div>
+            <button class="checkout-btn" id="checkout-btn">Finalizar Pedido via WhatsApp</button>
+        </div>
+    </div>
+
+    <!-- Modal Quick View -->
+    <div class="modal" id="quickview-modal">
+        <button class="close-modal" id="close-modal">&times;</button>
+        <div class="modal-content" id="modal-content-inner">
+            <!-- Conteúdo dinâmico -->
+        </div>
+    </div>
+
+    <!-- Modal Localização -->
+    <div class="info-modal" id="store-modal">
+        <button class="close-modal" id="close-store-modal">&times;</button>
+        <h3>Nossa Loja Física</h3>
+        <p><i class="fa-solid fa-store" style="color: var(--primary); margin-right: 8px;"></i> Venha nos fazer uma visita e conhecer nossa vitrine de perto!</p>
+        <p><strong>Endereço:</strong> Rua Principal do Comércio, 120 - Loja 04 - Centro, São Paulo - SP</p>
+        <p><strong>Horário de Funcionamento:</strong> Segunda a Sábado das 09:00 às 19:00.</p>
+        <p>Possuímos estacionamento próprio para clientes.</p>
+    </div>
+
+    <!-- Script JS -->
+    <script src="script.js"></script>
+</body>
+</html>

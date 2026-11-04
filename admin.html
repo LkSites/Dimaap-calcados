@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Admin - Gerenciamento | Dimaap Calçados</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estilos da Tela de Login */
+        #login-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .login-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 320px;
+        }
+        .login-card h2 {
+            color: var(--primary, #333);
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+        .login-card input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid var(--border-color, #ccc);
+            border-radius: 6px;
+            box-sizing: border-box;
+            outline: none;
+            font-size: 0.9rem;
+        }
+        .login-card input:focus {
+            border-color: var(--primary, #4CAF50);
+        }
+        .login-card button {
+            background-color: var(--primary, #4CAF50);
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: var(--transition, 0.3s);
+        }
+        .login-card button:hover {
+            opacity: 0.9;
+        }
+        .error {
+            color: #e74c3c;
+            font-size: 0.85rem;
+            margin-top: 10px;
+        }
+
+        /* Conteúdo Principal Oculto Inicialmente */
+        #main-content {
+            display: none;
+        }
+
+        /* Estilos do Painel */
+        .admin-wrapper {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            background: #fff;
+            padding: 20px 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+        }
+        .admin-header h1 {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+        .admin-section {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+            margin-bottom: 30px;
+        }
+        .admin-section h2 {
+            color: var(--primary-dark);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            outline: none;
+            box-sizing: border-box;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: var(--primary);
+        }
+        .btn-salvar {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .btn-salvar:hover {
+            background: var(--primary-dark);
+        }
+        /* Tabelas */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.9rem;
+        }
+        th {
+            background-color: #faf8f9;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .btn-delete {
+            background: #e74c3c;
+            color: #fff;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+        .btn-delete:hover {
+            background: #c0392b;
+        }
+        .back-btn {
+            color: var(--primary);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Tela de Login (Aparece antes de tudo) -->
+    <div id="login-screen">
+        <div class="login-card">
+            <h2>Área Restrita - Admin</h2>
+            <input type="text" id="username" placeholder="Usuário"><br>
+            <input type="password" id="password" placeholder="Senha"><br>
+            <button onclick="verificarLogin()">Entrar</button>
+            <div id="error-msg" class="error"></div>
+        </div>
+    </div>
+
+    <!-- Conteúdo Principal do Painel (Fica oculto até logar) -->
+    <div id="main-content">
+        <div class="admin-wrapper">
+            <div class="admin-header">
+                <h1><i class="fa-solid fa-gauge"></i> Painel Administrativo - Dimaap</h1>
+                <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Voltar para a Loja</a>
+            </div>
+
+            <!-- Seção 1: Adicionar Novo Produto -->
+            <div class="admin-section">
+                <h2>Cadastrar Novo Produto</h2>
+                <form id="product-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Título do Produto:</label>
+                            <input type="text" id="p-title" required placeholder="Ex: Scarpin Verniz Marsala">
+                        </div>
+                        <div class="form-group">
+                            <label>Categoria:</label>
+                            <select id="p-category" required>
+                                <option value="calcados">Calçados</option>
+                                <option value="bolsas">Bolsas</option>
+                                <option value="bolsas-couro">Bolsas de Couro Legítimo</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Tag / Destaque:</label>
+                            <input type="text" id="p-tag" required placeholder="Ex: Lançamento, Exclusivo">
+                        </div>
+                        <div class="form-group">
+                            <label>Preço (R$):</label>
+                            <input type="number" step="0.01" id="p-price" required placeholder="Ex: 189.90">
+                        </div>
+                        <div class="form-group full">
+                            <label>Link da Imagem (URL):</label>
+                            <input type="url" id="p-image" required placeholder="Cole o link da foto (ex: do Unsplash)">
+                        </div>
+                        <div class="form-group full">
+                            <label>Descrição:</label>
+                            <textarea id="p-description" rows="3" required placeholder="Detalhes do produto..."></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-salvar">Cadastrar Produto</button>
+                </form>
+            </div>
+
+            <!-- Seção 2: Gerenciar / Excluir Produtos Cadastrados -->
+            <div class="admin-section">
+                <h2>Produtos Personalizados Cadastrados</h2>
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Título</th>
+                                <th>Categoria</th>
+                                <th>Preço</th>
+                                <th>Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-products-table">
+                            <!-- Preenchido via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Seção 3: Histórico de Pedidos Feitos -->
+            <div class="admin-section">
+                <h2>Histórico de Pedidos Feitos (Via WhatsApp)</h2>
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Data/Hora</th>
+                                <th>Itens do Pedido</th>
+                                <th>Valor Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orders-table">
+                            <!-- Preenchido via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Função de verificação de login
+        function verificarLogin() {
+            const usuarioDigitado = document.getElementById('username').value;
+            const senhaDigitada = document.getElementById('password').value;
+            const erroMsg = document.getElementById('error-msg');
+
+            // Credenciais solicitadas
+            const usuarioCorreto = "naty123";
+            const senhaCorreta = "123naty";
+
+            if (usuarioDigitado === usuarioCorreto && senhaDigitada === senhaCorreta) {
+                // Esconde a tela de login e mostra o painel admin
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+
+                // Carrega os dados do painel após o login
+                loadAdminProducts();
+                loadOrders();
+            } else {
+                erroMsg.textContent = "Usuário ou senha incorretos!";
+            }
+        }
+
+        // Permitir login apertando a tecla Enter
+        document.getElementById('password').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                verificarLogin();
+            }
+        });
+
+        // Cadastrar Produto
+        document.getElementById('product-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const newProduct = {
+                id: Date.now(),
+                title: document.getElementById('p-title').value,
+                category: document.getElementById('p-category').value,
+                tag: document.getElementById('p-tag').value,
+                price: parseFloat(document.getElementById('p-price').value),
+                image: document.getElementById('p-image').value,
+                description: document.getElementById('p-description').value,
+                sizes: document.getElementById('p-category').value === 'calcados' ? ["34", "35", "36", "37", "38", "39"] : ["Único"]
+            };
+
+            let customProducts = JSON.parse(localStorage.getItem('dimaap_custom_products')) || [];
+            customProducts.push(newProduct);
+            localStorage.setItem('dimaap_custom_products', JSON.stringify(customProducts));
+
+            alert('Produto cadastrado com sucesso!');
+            document.getElementById('product-form').reset();
+            loadAdminProducts();
+        });
+
+        // Carregar Produtos na Tabela do Admin
+        function loadAdminProducts() {
+            const tbody = document.getElementById('admin-products-table');
+            tbody.innerHTML = '';
+            let customProducts = JSON.parse(localStorage.getItem('dimaap_custom_products')) || [];
+
+            if (customProducts.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: #888;">Nenhum produto personalizado cadastrado.</td></tr>`;
+                return;
+            }
+
+            customProducts.forEach((product) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${product.title}</td>
+                    <td>${product.category}</td>
+                    <td>R$ ${product.price.toFixed(2).replace('.', ',')}</td>
+                    <td><button class="btn-delete" onclick="deleteProduct(${product.id})">Excluir</button></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Excluir Produto
+        function deleteProduct(id) {
+            if (confirm('Deseja realmente excluir este produto?')) {
+                let customProducts = JSON.parse(localStorage.getItem('dimaap_custom_products')) || [];
+                customProducts = customProducts.filter(p => p.id !== id);
+                localStorage.setItem('dimaap_custom_products', JSON.stringify(customProducts));
+                loadAdminProducts();
+            }
+        }
+
+        // Carregar Histórico de Pedidos
+        function loadOrders() {
+            const tbody = document.getElementById('orders-table');
+            tbody.innerHTML = '';
+            let orders = JSON.parse(localStorage.getItem('dimaap_orders')) || [];
+
+            if (orders.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="3" style="text-align: center; color: #888;">Nenhum pedido registrado ainda.</td></tr>`;
+                return;
+            }
+
+            orders.slice().reverse().forEach(order => {
+                const tr = document.createElement('tr');
+                let itemsList = order.items.map(i => `${i.qty}x ${i.title} (${i.size})`).join(', ');
+                tr.innerHTML = `
+                    <td>${order.date}</td>
+                    <td>${itemsList}</td>
+                    <td><strong>R$ ${order.total.toFixed(2).replace('.', ',')}</strong></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+    </script>
+</body>
+</html>
